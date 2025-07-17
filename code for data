@@ -1,36 +1,166 @@
 import pandas as pd
-import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Load the dataset
-df = pd.read_csv('tripadvisor_hotel_reviews.csv')
+# Load and clean the data
+file_path = r'C:\Users\lab-12\Downloads\SupplyChainGHGEmissionFactors_v1.2_NAICS_CO2e_USD2021.csv'
+data = pd.read_csv(file_path)
+data_cleaned = data.dropna()
 
-# Data Preprocessing
-def clean_data(review):
-    no_punc = re.sub(r'[^\w\s]', '', review)
-    no_digits = ''.join([i for i in no_punc if not i.isdigit()])
-    return no_digits
+# Enhanced Descriptive Statistics Visualization
+def visualize_descriptive_stats(data_frame, numeric_column):
+    # Create subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+    
+    # Table of descriptive statistics
+    stats = data_frame[numeric_column].describe().to_frame().T
+    ax1.axis('off')
+    ax1.table(cellText=stats.values,
+              rowLabels=stats.index,
+              colLabels=stats.columns,
+              loc='center',
+              cellLoc='center')
+    ax1.set_title('Numerical Summary Statistics')
+    
+    # Box plot + distribution visualization
+    sns.boxplot(x=data_frame[numeric_column], ax=ax2, width=0.3)
+    ax2_x = ax2.twiny()
+    sns.kdeplot(data_frame[numeric_column], ax=ax2_x, color='red', label='Density')
+    ax2.set_xlabel('Emission Factor Values')
+    ax2_x.set_xlabel('')
+    ax2.set_title('Distribution with Box Plot')
+    ax2_x.legend(loc='upper right')
+    
+    plt.suptitle(f'Descriptive Analysis of {numeric_column}', y=1.05, fontsize=14)
+    plt.tight_layout()
+    plt.show()
 
-df['Review'] = df['Review'].apply(clean_data)
+# Call the function for the EmissionFactor column
+visualize_descriptive_stats(data_cleaned, 'EmissionFactor')
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Feature Extraction using TF-IDF
-tfidf = TfidfVectorizer(strip_accents=None, lowercase=False, preprocessor=None)
-X = tfidf.fit_transform(df['Review'])
-y = df['Sentiment']  # Assuming 'Sentiment' is the target variable
+# Load and clean the data
+file_path = r'C:\Users\lab-12\Downloads\SupplyChainGHGEmissionFactors_v1.2_NAICS_CO2e_USD2021.csv'
+data = pd.read_csv(file_path)
+data_cleaned = data.dropna()
 
-# Train-Test Split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+# Enhanced Descriptive Statistics Visualization
+def visualize_descriptive_stats(data_frame, numeric_column):
+    # Create subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+    
+    # Table of descriptive statistics
+    stats = data_frame[numeric_column].describe().to_frame().T
+    ax1.axis('off')
+    ax1.table(cellText=stats.values,
+              rowLabels=stats.index,
+              colLabels=stats.columns,
+              loc='center',
+              cellLoc='center')
+    ax1.set_title('Numerical Summary Statistics')
+    
+    # Box plot + distribution visualization
+    sns.boxplot(x=data_frame[numeric_column], ax=ax2, width=0.3)
+    ax2_x = ax2.twiny()
+    sns.kdeplot(data_frame[numeric_column], ax=ax2_x, color='red', label='Density')
+    ax2.set_xlabel('Emission Factor Values')
+    ax2_x.set_xlabel('')
+    ax2.set_title('Distribution with Box Plot')
+    ax2_x.legend(loc='upper right')
+    
+    plt.suptitle(f'Descriptive Analysis of {numeric_column}', y=1.05, fontsize=14)
+    plt.tight_layout()
+    plt.show()
 
-# Model Training
-lr = LogisticRegression(solver='liblinear')
-lr.fit(X_train, y_train)
+# Call the function for the EmissionFactor column
+visualize_descriptive_stats(data_cleaned, 'EmissionFactor')
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Predictions
-preds = lr.predict(X_test)
+# Load and clean the data
+file_path = r'C:\Users\lab-12\Downloads\SupplyChainGHGEmissionFactors_v1.2_NAICS_CO2e_USD2021.csv'
+data = pd.read_csv(file_path)
+data_cleaned = data.dropna()
 
-# Model Evaluation
-accuracy = accuracy_score(preds, y_test)
-print("Accuracy Score: ", accuracy)
+# Enhanced Descriptive Statistics Visualization
+def visualize_descriptive_stats(data_frame, numeric_column):
+    # Create subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+    
+    # Table of descriptive statistics
+    stats = data_frame[numeric_column].describe().to_frame().T
+    ax1.axis('off')
+    ax1.table(cellText=stats.values,
+              rowLabels=stats.index,
+              colLabels=stats.columns,
+              loc='center',
+              cellLoc='center')
+    ax1.set_title('Numerical Summary Statistics')
+    
+    # Box plot + distribution visualization
+    sns.boxplot(x=data_frame[numeric_column], ax=ax2, width=0.3)
+    ax2_x = ax2.twiny()
+    sns.kdeplot(data_frame[numeric_column], ax=ax2_x, color='red', label='Density')
+    ax2.set_xlabel('Emission Factor Values')
+    ax2_x.set_xlabel('')
+    ax2.set_title('Distribution with Box Plot')
+    ax2_x.legend(loc='upper right')
+    
+    plt.suptitle(f'Descriptive Analysis of {numeric_column}', y=1.05, fontsize=14)
+    plt.tight_layout()
+    plt.show()
+
+# Call the function for the EmissionFactor column
+visualize_descriptive_stats(data_cleaned, 'EmissionFactor')
+
+
+
+# output
+S C:\Users\lab-12\Desktop\KHUSHI GHIDODE>  & 'c:\Program Files\Python313\python.exe' 'c:\Users\lab-12\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy\launcher' '60854' '--' 'c:\Users\lab-12\Desktop\KHUSHI GHIDODE\gc.py' 
+   2017 NAICS Code                  2017 NAICS Title  ... Supply Chain Emission Factors with Margins Reference USEEIO Code
+0           111110                   Soybean Farming  ...                                      1.326                1111A0
+1           111120  Oilseed (except Soybean) Farming  ...                                      1.326                1111A0
+2           111130          Dry Pea and Bean Farming  ...                                      3.007                1111B0
+3           111140                     Wheat Farming  ...                                      3.007                1111B0
+4           111150                      Corn Farming  ...                                      3.007                1111B0
+
+[5 rows x 8 columns]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1016 entries, 0 to 1015
+Data columns (total 8 columns):
+ #   Column                                         Non-Null Count  Dtype
+---  ------                                         --------------  -----
+ 0   2017 NAICS Code                                1016 non-null   int64
+ 1   2017 NAICS Title                               1016 non-null   object
+ 2   GHG                                            1016 non-null   object
+ 3   Unit                                           1016 non-null   object
+ 4   Supply Chain Emission Factors without Margins  1016 non-null   float64
+ 5   Margins of Supply Chain Emission Factors       1016 non-null   float64
+ 6   Supply Chain Emission Factors with Margins     1016 non-null   float64
+ 7   Reference USEEIO Code                          1016 non-null   object
+dtypes: float64(3), int64(1), object(4)
+memory usage: 63.6+ KB
+None
+2017 NAICS Code                                  0
+2017 NAICS Title                                 0
+GHG                                              0
+Unit                                             0
+Supply Chain Emission Factors without Margins    0
+Margins of Supply Chain Emission Factors         0
+Supply Chain Emission Factors with Margins       0
+Reference USEEIO Code                            0
+dtype: int64
+       2017 NAICS Code  ...  Supply Chain Emission Factors with Margins
+count      1016.000000  ...                                 1016.000000
+mean     424917.376969  ...                                    0.386014
+std      164942.113495  ...                                    0.569845
+min      111110.000000  ...                                    0.013000
+25%      325588.250000  ...                                    0.128750
+50%      423700.000000  ...                                    0.208000
+75%      532111.250000  ...                                    0.448250
+max      813990.000000  ...                                   10.989000
+
+[8 rows x 4 columns]
